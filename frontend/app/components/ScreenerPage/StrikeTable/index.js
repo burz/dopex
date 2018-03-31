@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
-import { startNewCallListner } from './listeners';
+import { startEventListener, processCallEvent, processPutEvent } from './listeners';
 import * as actions from './actions';
 import { StrikeTableStyles } from './style';
 
