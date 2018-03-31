@@ -6,22 +6,21 @@ import Helmet from 'react-helmet';
 import injectSaga from 'utils/injectSaga';
 import { RESTART_ON_REMOUNT } from 'utils/constants';
 
+import NavBar from 'components/App/NavBar';
 import HomePage from 'containers/HomePage/Loadable';
+import ScreenerPage from 'containers/ScreenerPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import saga from './sagas';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
+        <NavBar />
         <Switch>
-          <Route exact path="/" component={ HomePage } />
+          <Route exact path="/" component={ ScreenerPage } />
           <Route component={ NotFoundPage } />
         </Switch>
       </div>

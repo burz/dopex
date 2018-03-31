@@ -1,0 +1,69 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+
+// import Button from 'components/Reusable/SimpleButton';
+
+// import { logoutUser } from 'containers/App/actions';
+import { NavbarStyles } from './style';
+
+
+class NavBar extends React.Component {
+
+
+  renderNavRight() {
+    return (
+      <div>asdasdad</div>
+    );
+  }
+
+  render() {
+    return (
+      <NavbarStyles>
+        <Navbar inverse collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <div className="nav-header-logo">DOPEX</div>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav>
+              <NavItem eventKey={1} href="#">Link 1</NavItem>
+              <NavItem eventKey={2} href="#">Link 2</NavItem>
+            </Nav>
+
+            { this.renderNavRight() }
+
+          </Navbar.Collapse>
+        </Navbar>
+
+      </NavbarStyles>
+    );
+  }
+}
+
+NavBar.propTypes = {
+  history: PropTypes.object,
+  // logoutUser: PropTypes.func,
+  // loggedIn: PropTypes.bool,
+  // name: PropTypes.string,
+  // userImg: PropTypes.string,
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  // name: state.getIn(['session', 'user', 'givenName']),
+  // loggedIn: state.getIn(['session', 'loggedIn']),
+  // userImg: state.getIn(['session', 'user', 'imageUrl'])
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  // logoutUser: () => dispatch(logoutUser()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(NavBar));
