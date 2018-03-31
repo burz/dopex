@@ -13,11 +13,11 @@ class HomePage extends React.Component {
   render() {
     return (
       <HomePageStyles>
-        <Helmet title="Home | Alphonso Boilerplate" />
+        <Helmet title="Home | DOPEX" />
         <Grid>
           <Row>
             <Col>
-              <h1>Alphonso Boilerplate - Home Page Placeholder</h1>
+              <h1>DOPEX Front Page</h1>
             </Col>
           </Row>
         </Grid>
