@@ -2,10 +2,10 @@ import { fromJS, List, toJS } from 'immutable';
 import { WEB3_INITIALIZED, COINBASE_RETRIEVED } from 'utils/web3/actions';
 
 
-const initialState = {
+const initialState = fromJS({
   instance: null,
   coinbase: null,
-};
+});
 
 const web3Reducer = (state = initialState, action) => {
   switch (action.type) {
