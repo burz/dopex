@@ -231,6 +231,8 @@
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
+    "ag-grid": "^17.0.0",
+    "ag-grid-react": "^17.0.0",
     "babel-polyfill": "6.23.0",
     "chalk": "^1.1.3",
     "compression": "1.6.2",
@@ -250,6 +252,8 @@
     "react": "15.6.1",
     "react-bootstrap": "^0.32.0",
     "react-dom": "15.6.1",
+    "react-dom-factories": "^1.0.2",
+    "react-flot": "^1.3.0",
     "react-helmet": "5.1.3",
     "react-intl": "2.3.0",
     "react-loadable": "4.0.3",
