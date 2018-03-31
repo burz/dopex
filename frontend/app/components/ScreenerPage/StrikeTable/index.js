@@ -16,6 +16,7 @@ class StrikeTable extends React.Component {
 
   componentWillMount() {
     startNewCallListner();
+    console.log("yo2");
     this.props.fetchInitialStrikeTableData();
   }
 
