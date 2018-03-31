@@ -1,5 +1,17 @@
 pragma solidity ^0.4.18;
 
+contract ERC20Interface {
+    function totalSupply() public constant returns (uint);
+    function balanceOf(address tokenOwner) public constant returns (uint balance);
+    function allowance(address tokenOwner, address spender) public constant returns (uint remaining);
+    function transfer(address to, uint tokens) public returns (bool success);
+    function approve(address spender, uint tokens) public returns (bool success);
+    function transferFrom(address from, address to, uint tokens) public returns (bool success);
+
+    event Transfer(address indexed from, address indexed to, uint tokens);
+    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+}
+
 /// @dev Contract for Dopex exchange
 contract Dopex {
     /// @dev Struct to hold information about an option
@@ -12,6 +24,9 @@ contract Dopex {
 
         /// @dev The strike price of the contract
         uint strike;
+
+        /// @dev The number of tokens in the contract
+        uint size;
 
         /// @dev The start time of the contract
         uint start;
@@ -75,12 +90,14 @@ contract Dopex {
     /// @dev Create a new call option
     /// @param _token The address of the token being traded
     /// @param _strike The strike price of the contract
+    /// @param _size The number of tokens in the contract
     /// @param _start The start time of the contract
     /// @param _period The exercise period of the contract
     /// @param _price The price of the contract
     function createCall(
           address _token
         , uint _strike
+        , uint _size
         , uint _start
         , uint _period
         , uint _price
@@ -93,9 +110,20 @@ contract Dopex {
         _info.token   = _token
         _info.creator = msg.sender;
         _info.strike  = _strike;
+        _info.size    = _size;
         _info.start   = _start;
         _info.period  = _period;
         _info.price   = _price;
+
+        // Transfer the ERC20 tokens to this contract
+        if(!ERC20Interface(_token).transferFrom(
+              msg.sender
+            , this
+            , _size
+        ))
+        {
+            revert();
+        }
 
         // Expose the new contract
         emit NewCall(
@@ -134,7 +162,7 @@ contract Dopex {
 
     /// @dev Exercise the call option
     /// @param _id The id of the call option
-    function exerciseCall(uint _id) public
+    function exerciseCall(uint _id) public payable
     {
         // Lookup the contract's info
         OptionInfo storage _info = calls[_id];
@@ -148,8 +176,23 @@ contract Dopex {
         // Require that the option has not been exercised
         require(!_info.exercised);
 
+        // Require that the correct amount was sent to exercise
+        require(_info.strike * _info.size == msg.value);
+
         // Now the options has been exercised
         _info.exercised = true;
+
+        // Send the contract creator the amount
+        _info.creator.transfer(msg.value);
+
+        // Send the buyer the tokens
+        if(!ERC20Interface(_token).transfer(
+            , msg.sender
+            , _tokens
+        ))
+        {
+            revert();
+        }
 
         // Expose that the option has been exercised
         emit CallExercised(_id);
@@ -170,6 +213,15 @@ contract Dopex {
 
         // Now the options has been exercised
         _info.exercised = true;
+
+        // Send the creator his tokens
+        if(!ERC20Interface(_token).transfer(
+            , _info.creator
+            , _tokens
+        ))
+        {
+            revert();
+        }
 
         // Expose that the option has been closed
         emit CallClosed(_id);
