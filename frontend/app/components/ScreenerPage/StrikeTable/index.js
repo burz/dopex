@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
+import { startNewCallListner } from './listeners';
 import * as actions from './actions';
 import { StrikeTableStyles } from './style';
 
 
 class StrikeTable extends React.Component {
-  // componentWillMount() {
-  //   console.log('hi');
-  // }
+  componentWillMount() {
+    console.log('yooo');
+    startNewCallListner();
+  }
 
   render() {
     return (
