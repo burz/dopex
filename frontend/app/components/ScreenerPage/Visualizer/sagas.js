@@ -12,7 +12,7 @@ import * as data from './data';
 
 // -- Fetch Visualizer Data -- //
 function* fetchVisualizerData(action) {
-  console.log('fetching latest strike table data');
+  console.log('fetching latest visualizer data');
   yield put(actions.receiveVisualizerData(data.sampleData));
 }
 export function* watchFetchInitialVisualizerData() {

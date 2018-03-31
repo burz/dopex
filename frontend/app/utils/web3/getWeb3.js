@@ -3,8 +3,6 @@ import Web3 from 'web3';
 
 import * as actions from './actions';
 
-console.log(store);
-
 
 export const getWeb3 = new Promise((resolve) => {
   // Wait for loading completion to avoid race conditions with web3 injection timing.

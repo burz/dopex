@@ -16,29 +16,22 @@ class Visualizer extends React.Component {
     this.props.fetchInitialVisualizerData();
   }
 
-  // renderSampleData() {
-  //   return this.props.data.map((line, i) => {
-  //     return <div key={i}>{ JSON.stringify(line) }</div>;
-  //   });
-  // }
-
   render() {
-
     return (
-      <div>asdasd</div>
+      <div>Visualizer { this.props.data }</div>
     );
   }
 }
 
 Visualizer.propTypes = {
   fetchInitialVisualizerData: PropTypes.func,
-  data: PropTypes.array,
-  // loading: PropTypes.bool,
+  data: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  // data: state.getIn(['visualizer', 'data']).toJS(),
-  // loading: state.getIn(['videoWall', 'loading']),
+  data: state.getIn(['visualizer', 'data']),
+  loading: state.getIn(['videoWall', 'loading']),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -11,32 +11,24 @@ import { NavbarStyles } from './style';
 
 
 class NavBar extends React.Component {
-
-
-  renderNavRight() {
-    return (
-      <div>asdasdad</div>
-    );
-  }
-
   render() {
     return (
-      <NavbarStyles>
-        <Navbar inverse collapseOnSelect>
-          <Navbar.Header>
+      <NavbarStyles >
+        <Navbar inverse collapseOnSelect className="dashboards-grid">
+          <Navbar.Header className="dashboards-grid">
             <Navbar.Brand>
               <div className="nav-header-logo">DOPEX</div>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">Link 1</NavItem>
-              <NavItem eventKey={2} href="#">Link 2</NavItem>
-            </Nav>
-
-            { this.renderNavRight() }
-
+            { /*
+              <Nav>
+                <NavItem eventKey={1} href="#">Link 1</NavItem>
+                <NavItem eventKey={2} href="#">Link 2</NavItem>
+              </Nav>
+              */
+            }
           </Navbar.Collapse>
         </Navbar>
 
@@ -46,7 +38,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  history: PropTypes.object,
+  // history: PropTypes.object,
   // logoutUser: PropTypes.func,
   // loggedIn: PropTypes.bool,
   // name: PropTypes.string,
