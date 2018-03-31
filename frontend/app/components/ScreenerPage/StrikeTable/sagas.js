@@ -13,7 +13,7 @@ import * as data from './data';
 // -- Fetch Strike Table Data -- //
 function* fetchStrikeTableData(action) {
   // console.log('fetching latest strike table data');
-  yield put(actions.receiveStrikeTableData(data.sampleData));
+  // yield put(actions.receiveStrikeTableData(data.sampleData));
 }
 export function* watchFetchInitialStrikeTableData() {
   yield takeLatest(actions.FETCH_INITIAL_STRIKE_TABLE_DATA, fetchStrikeTableData);

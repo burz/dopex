@@ -80,6 +80,34 @@ contract Dopex {
     /// @dev Fired when a put is closed without being exercised
     event PutClosed(uint id);
 
+    function createTestCallEvent() public {
+        // Expose the new contract
+        emit NewCall(
+              nextCallId++
+            , msg.sender
+            , msg.sender
+            , 1
+            , 1
+            , 1
+            , 1
+            , 1
+        );
+    }
+
+    function createTestPutEvent() public {
+        // Expose the new contract
+        emit NewPut(
+              nextCallId++
+            , msg.sender
+            , msg.sender
+            , 1
+            , 1
+            , 1
+            , 1
+            , 1
+        );
+    }
+
     /// @dev Create a new call option
     /// @param _token The address of the token being traded
     /// @param _strike The strike price of the contract
