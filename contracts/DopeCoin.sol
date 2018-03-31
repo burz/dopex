@@ -5,7 +5,7 @@ import './ERC20Interface.sol';
 /// @dev Contract for dope coin example token
 ///  Shamelessly copied from https://github.com/ConsenSys/Tokens/blob/master/contracts/eip20/EIP20.sol
 contract DopeCoin is ERC20Interface {
-    uint private totalSupply_ = 1000;
+    uint private totalSupply_ = 1000000;
 
     uint constant private MAX_UINT = 2 ** 256 - 1;
     mapping (address => uint) public balances;
@@ -21,7 +21,7 @@ contract DopeCoin is ERC20Interface {
     string public symbol  = "DOPE";            // An identifier: eg SBX
 
     function DopeCoin() public {
-        balances[msg.sender] = 1000;           // Give the creator all initial tokens
+        balances[msg.sender] = 1000000;           // Give the creator all initial tokens
     }
 
     function totalSupply() public constant returns (uint) {
