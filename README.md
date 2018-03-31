@@ -1,1 +1,1 @@
-# opex -- ERC20 options exchange
+# dopex -- The "dope" ERC20 options exchange
