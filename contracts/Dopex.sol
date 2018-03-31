@@ -37,8 +37,8 @@ contract Dopex {
         /// @dev The price to buy this contract
         uint price;
 
-        /// @dev The buyer of the contract
-        address buyer;
+        /// @dev The owner of the contract
+        address owner;
 
         /// @dev Has the contract been exercised?
         bool exercised;
@@ -60,12 +60,13 @@ contract Dopex {
         , address token
         , address creator
         , uint strike
+        , uint size
         , uint start
         , uint period
         , uint price
     );
     /// @dev Fired when a call is purchased
-    event CallPurchased(uint id, address buyer);
+    event CallPurchased(uint id, address owner);
     /// @dev Fired when a call is exercised
     event CallExercised(uint id);
     /// @dev Fired when a call is closed without being exercised
@@ -74,14 +75,16 @@ contract Dopex {
     /// @dev Fired when a new put is created
     event NewPut(
           uint id
+        , address token
         , address creator
         , uint strike
+        , uint size
         , uint start
         , uint period
         , uint price
     );
     /// @dev Fired when a put is purchased
-    event PutPurchased(uint id, address buyer);
+    event PutPurchased(uint id, address owner);
     /// @dev Fired when a put is exercised
     event PutExercised(uint id);
     /// @dev Fired when a put is closed without being exercised
@@ -131,6 +134,7 @@ contract Dopex {
             , _token
             , msg.sender
             , _strike
+            , _size
             , _start
             , _period
             , _price
@@ -150,8 +154,8 @@ contract Dopex {
         // Require that the price was paid for the contract
         require(_info.price == msg.value);
 
-        // Set the buyer in the contract info
-        _info.buyer = msg.sender;
+        // Set the owner in the contract info
+        _info.owner = msg.sender;
 
         // Send the seller his money
         _info.creator.transfer(msg.value);
@@ -167,8 +171,8 @@ contract Dopex {
         // Lookup the contract's info
         OptionInfo storage _info = calls[_id];
 
-        // Require that the sender is the buyer of the contract
-        require(_info.buyer == msg.sender);
+        // Require that the sender is the owner of the contract
+        require(_info.owner == msg.sender);
 
         // Require that the exercise is within the period
         require(_info.start <= now && _info.start + _info.period >= now);
@@ -185,7 +189,7 @@ contract Dopex {
         // Send the contract creator the amount
         _info.creator.transfer(msg.value);
 
-        // Send the buyer the tokens
+        // Send the owner the tokens
         if(!ERC20Interface(_info.token).transfer(
               msg.sender
             , _info.size
@@ -225,5 +229,131 @@ contract Dopex {
 
         // Expose that the option has been closed
         emit CallClosed(_id);
+    }
+
+    /// @dev Create a new put option
+    /// @param _token The address of the token being traded
+    /// @param _strike The strike price of the contract
+    /// @param _size The number of tokens in the contract
+    /// @param _start The start time of the contract
+    /// @param _period The exercise period of the contract
+    /// @param _price The price of the contract
+    function createPut(
+          address _token
+        , uint _strike
+        , uint _size
+        , uint _start
+        , uint _period
+        , uint _price
+    )
+        public
+        payable
+    {
+        OptionInfo storage _info = puts[nextPutId];
+
+        // Store data about the contract
+        _info.token   = _token;
+        _info.creator = msg.sender;
+        _info.strike  = _strike;
+        _info.size    = _size;
+        _info.start   = _start;
+        _info.period  = _period;
+        _info.price   = _price;
+
+        require(_size * _price == msg.value);
+
+        // Expose the new contract
+        emit NewPut(
+              nextPutId++
+            , _token
+            , msg.sender
+            , _strike
+            , _size
+            , _start
+            , _period
+            , _price
+        );
+    }
+
+    /// @dev Purchase an existing put option
+    /// @param _id The id of the put option
+    function purchasePut(uint _id) public payable
+    {
+        // Lookup the contract's info
+        OptionInfo storage _info = puts[_id];
+
+        // Ensure that the contract actually exists
+        require(0x0 != _info.creator);
+
+        // Require that the price was paid for the contract
+        require(_info.price == msg.value);
+
+        // Set the owner in the contract info
+        _info.owner = msg.sender;
+
+        // Send the seller his money
+        _info.creator.transfer(msg.value);
+
+        // Expose that the contract was bought
+        emit PutPurchased(_id, msg.sender);
+    }
+
+    /// @dev Exercise the put option
+    /// @param _id The id of the put option
+    function exercisePut(uint _id) public
+    {
+        // Lookup the contract's info
+        OptionInfo storage _info = puts[_id];
+
+        // Require that the sender is the owner of the contract
+        require(_info.owner == msg.sender);
+
+        // Require that the exercise is within the period
+        require(_info.start <= now && _info.start + _info.period >= now);
+
+        // Require that the option has not been exercised
+        require(!_info.exercised);
+
+        // Now the options has been exercised
+        _info.exercised = true;
+
+        // Send the contract creator the amount
+        msg.sender.transfer(_info.size * _info.price);
+
+        // Send the creator the tokens
+        if(!ERC20Interface(_info.token).transferFrom(
+              msg.sender
+            , _info.creator
+            , _info.size
+        ))
+        {
+            revert();
+        }
+
+        // Expose that the option has been exercised
+        emit PutExercised(_id);
+    }
+
+    /// @dev Close a put option if it has not been exercised
+    /// @param _id The id of the put option
+    function closePut(uint _id) public
+    {
+        // Lookup the contract's info
+        OptionInfo storage _info = puts[_id];
+
+        // Require that the exercising period has ended
+        require(_info.start + _info.period < now);
+
+        // Require that the option has not been exercised
+        require(!_info.exercised);
+
+        // Now the options has been exercised
+        _info.exercised = true;
+
+        // Send the creator his funds
+        _info.creator.transfer(_info.size * _info.price);
+
+        // Expose that the option has been closed
+        emit PutClosed(_id);
     }
 }
