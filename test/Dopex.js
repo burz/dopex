@@ -149,4 +149,43 @@ contract('Dopex', function (accounts) {
       })
     })
   })
+
+  it('Can exercise call', () => {
+    return genericSetup((dopex, dopecoin) => {
+      return dopecoin.approve(dopex.address, 100).then(() => {
+        return dopex.createCall(
+            dopecoin.address
+          , 100
+          , 100
+          , 100
+          , Math.pow(10, 18)
+          , 1
+        )
+      }).then(() => {
+        return dopex.purchaseCall(2, {value: 1})
+      }).then(() => {
+        return dopex.exerciseCall(2, {value: 100 * 100})
+      })
+    })
+  })
+
+  it('Can exercise put', () => {
+    return genericSetup((dopex, dopecoin) => {
+      return dopex.createPut(
+          dopecoin.address
+        , 100
+        , 100
+        , 100
+        , Math.pow(10, 18)
+        , 1
+        , {value: 100}
+      ).then(() => {
+        return dopex.purchasePut(2, {value: 1})
+      }).then(() => {
+        return dopecoin.approve(dopex.address, 100)
+      }).then(() => {
+        return dopex.exercisePut(2)
+      })
+    })
+  })
 })
