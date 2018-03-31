@@ -5,9 +5,9 @@ import './ERC20Interface.sol';
 /// @dev Contract for dope coin example token
 ///  Shamelessly copied from https://github.com/ConsenSys/Tokens/blob/master/contracts/eip20/EIP20.sol
 contract DopeCoin is ERC20Interface {
-    uint public totalSupply;
+    uint private totalSupply_ = 1000;
 
-    uint constant private MAX_UINT256 = 2**256 - 1;
+    uint constant private MAX_UINT = 2 ** 256 - 1;
     mapping (address => uint) public balances;
     mapping (address => mapping (address => uint)) public allowed;
     /*
@@ -20,9 +20,12 @@ contract DopeCoin is ERC20Interface {
     uint8 public decimals = 18;                // How many decimals to show.
     string public symbol  = "DOPE";            // An identifier: eg SBX
 
-    function DopeCoin(uint _initialAmount) public {
-        balances[msg.sender] = _initialAmount;               // Give the creator all initial tokens
-        totalSupply = _initialAmount;                        // Update total supply
+    function DopeCoin() public {
+        balances[msg.sender] = 1000;           // Give the creator all initial tokens
+    }
+
+    function totalSupply() public constant returns (uint) {
+        return totalSupply_;
     }
 
     function transfer(address _to, uint _value) public returns (bool success) {
@@ -38,7 +41,7 @@ contract DopeCoin is ERC20Interface {
         require(balances[_from] >= _value && allowance >= _value);
         balances[_to] += _value;
         balances[_from] -= _value;
-        if (allowance < MAX_UINT256) {
+        if (allowance < MAX_UINT) {
             allowed[_from][msg.sender] -= _value;
         }
         emit Transfer(_from, _to, _value);
@@ -57,5 +60,5 @@ contract DopeCoin is ERC20Interface {
 
     function allowance(address _owner, address _spender) public view returns (uint remaining) {
         return allowed[_owner][_spender];
-    }   
+    }
 }
