@@ -9,6 +9,7 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import routeReducer from 'reducers/routeReducer';
 import strikeTableReducer from 'reducers/strikeTableReducer';
 import visualizerReducer from 'reducers/visualizerReducer';
+import web3Reducer from 'reducers/web3Reducer';
 
 
 /**
@@ -20,6 +21,7 @@ export default function createReducer(injectedReducers) {
     language: languageProviderReducer,
     strikeTable: strikeTableReducer,
     visualizer: visualizerReducer,
+    web3: web3Reducer,
     ...injectedReducers,
   });
 }

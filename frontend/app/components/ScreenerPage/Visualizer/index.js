@@ -12,7 +12,6 @@ class Visualizer extends React.Component {
   }
 
   componentWillMount() {
-    console.log('yooo');
     // startNewCallListner();
     this.props.fetchInitialVisualizerData();
   }
@@ -24,8 +23,9 @@ class Visualizer extends React.Component {
   // }
 
   render() {
+
     return (
-      <div>{ this.props.data }</div>
+      <div>asdasd</div>
     );
   }
 }
@@ -37,7 +37,7 @@ Visualizer.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.getIn(['visualizer', 'data']).toJS(),
+  // data: state.getIn(['visualizer', 'data']).toJS(),
   // loading: state.getIn(['videoWall', 'loading']),
 });
 
