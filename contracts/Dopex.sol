@@ -141,6 +141,9 @@ contract Dopex {
         // Ensure that the contract actually exists
         require(0x0 != _info.creator);
 
+        // Require that the creator hasn't closed the contract
+        require(!_info.exercised);
+
         // Require that the price was paid for the contract
         require(_info.price == msg.value);
 
@@ -199,8 +202,12 @@ contract Dopex {
         // Lookup the contract's info
         OptionInfo storage _info = calls[_id];
 
-        // Require that the exercising period has ended
-        require(_info.start + _info.period < now);
+        // If someone has actually bought the option
+        if(0x0 != _info.owner)
+        {
+            // Require that the exercising period has ended
+            require(_info.start + _info.period < now);
+        }
 
         // Require that the option has not been exercised
         require(!_info.exercised);
@@ -331,8 +338,12 @@ contract Dopex {
         // Lookup the contract's info
         OptionInfo storage _info = puts[_id];
 
-        // Require that the exercising period has ended
-        require(_info.start + _info.period < now);
+        // If someone has actually bought the option
+        if(0x0 != _info.owner)
+        {
+            // Require that the exercising period has ended
+            require(_info.start + _info.period < now);
+        }
 
         // Require that the option has not been exercised
         require(!_info.exercised);

@@ -43,7 +43,7 @@ contract('Dopex', function (accounts) {
           , 100
           , 100
           , 100
-          , 100
+          , Math.pow(10, 18)
           , 1
         )
       }).then(() => {
@@ -59,8 +59,31 @@ contract('Dopex', function (accounts) {
   })
 
   it('Succeeds to purchase call option with enough ETH', () => {
+    return genericSetup((dopex, dopecoin) => {
+      return dopex.purchaseCall(0, {value: 1})
+    })
+  })
+
+  it("Can't close call contract before the exercise period has ended", () => {
     return expectFailure((dopex, dopecoin) => {
-      return dopex.purchaseCall(0, {value: 100})
+      return dopex.closeCall(0)
+    })
+  })
+
+  it('Can close call contract if nobody has purchased it', () => {
+    return genericSetup((dopex, dopecoin) => {
+      return dopecoin.approve(dopex.address, 100).then(() => {
+        return dopex.createCall(
+            dopecoin.address
+          , 100
+          , 100
+          , 100
+          , Math.pow(10, 18)
+          , 1
+        )
+      }).then(() => {
+        return dopex.closeCall(1)
+      })
     })
   })
 
@@ -84,7 +107,7 @@ contract('Dopex', function (accounts) {
         , 100
         , 1
         , 100
-        , 100
+        , Math.pow(10, 18)
         , 100
         , {value: 100}
       ).then(() => {
@@ -102,6 +125,28 @@ contract('Dopex', function (accounts) {
   it('Can purchase put option with enough ETH sent', () => {
     return genericSetup((dopex, dopecoin) => {
       return dopex.purchasePut(0, {value: 100})
+    })
+  })
+
+  it("Can't close put contract before the exercise period has ended", () => {
+    return expectFailure((dopex, dopecoin) => {
+      return dopex.closePut(0)
+    })
+  })
+
+  it('Can close put contract if nobody has purchased it', () => {
+    return genericSetup((dopex, dopecoin) => {
+      return dopex.createPut(
+          dopecoin.address
+        , 100
+        , 100
+        , 0
+        , Math.pow(10, 18)
+        , 1
+        , {value: 100}
+      ).then(() => {
+        return dopex.closePut(1)
+      })
     })
   })
 })
