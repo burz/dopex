@@ -8,13 +8,17 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 
 import Visualizer from 'components/ScreenerPage/Visualizer';
-import StrikeTable from 'components/ScreenerPage/StrikeTable';
+import StrikeTableContainer from 'containers/ScreenerPage/StrikeTableContainer.js';
 
 import ScreenerPageStyles from './style';
 import saga from './sagas';
 
 
 class ScreenerPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <ScreenerPageStyles>
@@ -22,11 +26,10 @@ class ScreenerPage extends React.Component {
         <Grid className="dashboards-grid">
           <Row>
             <Col>
-              <h1>DOPEX Front Page</h1>
               <Visualizer />
-              <StrikeTable />
             </Col>
           </Row>
+          <StrikeTableContainer />
         </Grid>
       </ScreenerPageStyles>
     );

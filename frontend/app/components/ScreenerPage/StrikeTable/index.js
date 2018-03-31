@@ -10,15 +10,6 @@ import { StrikeTableStyles } from './style';
 
 
 class StrikeTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
-    startNewCallListner();
-    this.props.fetchInitialStrikeTableData();
-  }
-
   renderSampleData() {
     return this.props.data.map((line, i) => {
       return <div key={i}>{ JSON.stringify(line) }</div>;
@@ -26,15 +17,19 @@ class StrikeTable extends React.Component {
   }
 
   renderTableBody() {
-  //   return this.props.data.map((airing, idx) =>
-  //     <AdAiringsTableItem
-  //       key={ `${airing.aired_ads_id}` }
-  //       airing={ airing }
-  //       debug={ this.props.debug }
-  //       openVideoPopup={ this.props.openVideoPopup(airing.mp4_clip, airing.thumbnail) }
-  //       new={ airing.new }
-  //     />
-  //   );
+    return this.props.data.map((el, i) =>
+      <tr key={i}>
+        <td className="td-calls-last">{ el.strike }</td>
+        <td className="td-calls-last">{ el.price }</td>
+        <td className="td-calls-last">{ el.size }</td>
+        <td className="td-calls-last">{ 'Dopecoin' }</td>
+        <td className="td-calls-last">{ el.sec }</td>
+        <td className="td-calls-last">{ el.start }</td>
+        <td className="td-calls-last">{ el.period }</td>
+        <td className="td-calls-last">{ el.creator }</td>
+        <td className="td-calls-last">{ el.owner }</td>
+      </tr>
+    );
   }
 
   // #56BEEC
@@ -47,21 +42,15 @@ class StrikeTable extends React.Component {
         <Table hover responsive>
           <thead>
             <tr>
-              <th className="th-calls-last">Last</th>
+              <th className="th-calls-last">STRIKE</th>
+              <th className="th-calls-last">Price</th>
               <th className="th-calls-last">Size</th>
-              <th className="th-calls-last">Bid</th>
-              <th className="th-calls-last">Ask</th>
-              <th className="th-calls-last">Size</th>
-              <th className="th-calls-last">Vol</th>
-              <th className="th-calls-last">Delta</th>
-              <th className="th-calls-last"></th>
-              <th className="th-calls-last">Last</th>
-              <th className="th-calls-last">Size</th>
-              <th className="th-calls-last">Bid</th>
-              <th className="th-calls-last">Ask</th>
-              <th className="th-calls-last">Size</th>
-              <th className="th-calls-last">Vol</th>
-              <th className="th-calls-last">Delta</th>
+              <th className="th-calls-last">Token</th>
+              <th className="th-calls-last">Security</th>
+              <th className="th-calls-last">Start</th>
+              <th className="th-calls-last">End</th>
+              <th className="th-calls-last">Creator</th>
+              <th className="th-calls-last">Owner</th>
             </tr>
           </thead>
           <tbody>
@@ -74,21 +63,8 @@ class StrikeTable extends React.Component {
 }
 
 StrikeTable.propTypes = {
-  fetchInitialStrikeTableData: PropTypes.func,
   data: PropTypes.array,
   // loading: PropTypes.bool,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  data: state.getIn(['strikeTable', 'data']).toJS(),
-  loading: state.getIn(['videoWall', 'loading']),
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchInitialStrikeTableData: () => dispatch(actions.fetchInitialStrikeTableData()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(StrikeTable));
+export default StrikeTable;

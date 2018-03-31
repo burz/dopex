@@ -7,8 +7,10 @@ const colorTransition = keyframes`
 `;
 
 export const StrikeTableStyles = styled.div`
+  margin-top: 10px;
+  font-size: 12px;
   table {
-    // border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
   }
 
   thead {
