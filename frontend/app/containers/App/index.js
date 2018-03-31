@@ -6,6 +6,8 @@ import Helmet from 'react-helmet';
 import injectSaga from 'utils/injectSaga';
 import { RESTART_ON_REMOUNT } from 'utils/constants';
 
+import * as web3 from 'utils/web3/getWeb3';
+
 import NavBar from 'components/App/NavBar';
 import HomePage from 'containers/HomePage/Loadable';
 import ScreenerPage from 'containers/ScreenerPage/Loadable';
