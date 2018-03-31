@@ -1,0 +1,19 @@
+@import '../node_modules/bulma/css/bulma.css';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import '../node_modules/purecss/build/pure-min.css';
+@import '../node_modules/toastr/build/toastr.min.css';
+@import './vendor/css/oswald.css';
+@import './vendor/css/open-sans.css';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+}
