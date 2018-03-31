@@ -10,12 +10,12 @@ import * as data from './data';
 // import * as helpers from './helpers';
 
 
-// -- Fetch Strike Table Data -- //
-function* fetchStrikeTableData(action) {
+// -- Fetch Visualizer Data -- //
+function* fetchVisualizerData(action) {
   console.log('fetching latest strike table data');
-  yield put(actions.receiveStrikeTableData(data.sampleData));
+  yield put(actions.receiveVisualizerData(data.sampleData));
 }
-export function* watchFetchInitialStrikeTableData() {
-  yield takeLatest(actions.FETCH_INITIAL_STRIKE_TABLE_DATA, fetchStrikeTableData);
+export function* watchFetchInitialVisualizerData() {
+  yield takeLatest(actions.FETCH_INITIAL_VISUALIZER_DATA, fetchVisualizerData);
 }
-// -- End Fetch Strike Table Data -- //
+// -- End Fetch Visualizer Data -- //

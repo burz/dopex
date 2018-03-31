@@ -1,25 +1,24 @@
-import Dopex from '../../../../../build/contracts/Dopex.json'
 import contract from 'truffle-contract';
+import Dopex from '../../../../../build/contracts/Dopex.json';
 
 export const startNewCallListner = () => {
-    const dopexContract = contract(Dopex)
+    const dopexContract = contract(Dopex);
 
-    dopexContract.setProvider(web3.currentProvider)
+    dopexContract.setProvider(web3.currentProvider);
 
     dopexContract.deployed().then((instance) => {
-        instance.allEvents({fromBlock: 0}, (error, result) => {
+        instance.allEvents({ fromBlock: 0 }, (error, result) => {
             if (error) {
-                console.log(error)
+                console.log(error);
                 return;
             }
 
-            switch(result.event) {
+            switch (result.event) {
                 case 'NewCall':
-                    break
+                    break;
                 case 'CallPurchased':
-                    break
+                    break;
             }
         });
     });
 };
-

@@ -1,7 +1,6 @@
 import { fromJS, List, toJS } from 'immutable';
 
-// import * as constants from 'components/VideoWallPage/VideoWall/constants';
-import * as actions from 'components/ScreenerPage/StrikeTable/actions';
+import * as actions from 'components/ScreenerPage/Visualizer/actions';
 
 
 const initialState = fromJS({
@@ -11,9 +10,9 @@ const initialState = fromJS({
 });
 
 
-function strikeTableReducer(state = initialState, action) {
+function visualizerReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.RECEIVE_STRIKE_TABLE_DATA:
+    case actions.RECEIVE_VISUALIZER_DATA:
       return state.merge({
         data: action.data,
         error: false,
@@ -25,4 +24,4 @@ function strikeTableReducer(state = initialState, action) {
   }
 }
 
-export default strikeTableReducer;
+export default visualizerReducer;

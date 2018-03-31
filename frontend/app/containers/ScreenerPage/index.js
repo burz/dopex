@@ -7,6 +7,7 @@ import Helmet from 'react-helmet';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 
+import Visualizer from 'components/ScreenerPage/Visualizer';
 import StrikeTable from 'components/ScreenerPage/StrikeTable';
 
 import ScreenerPageStyles from './style';
@@ -22,6 +23,7 @@ class ScreenerPage extends React.Component {
           <Row>
             <Col>
               <h1>DOPEX Front Page</h1>
+              <Visualizer />
               <StrikeTable />
             </Col>
           </Row>

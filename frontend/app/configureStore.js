@@ -14,9 +14,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 const logger = createLogger({
   // Convert Immutable Object to JS Object for redux-logger console readability purposes
-  stateTransformer: state => state.toJS()
+  stateTransformer: state => state.toJS(),
+  collapsed: true,
 });
-
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares

@@ -20,22 +20,28 @@ class StrikeTable extends React.Component {
     this.props.fetchInitialStrikeTableData();
   }
 
+  renderSampleData() {
+    return this.props.data.map((line, i) => {
+      return <div key={i}>{ JSON.stringify(line) }</div>;
+    });
+  }
+
   render() {
     return (
-      <div>Strike Table</div>
+      <div>{ this.renderSampleData() }</div>
     );
   }
 }
 
 StrikeTable.propTypes = {
   fetchInitialStrikeTableData: PropTypes.func,
-  // data: PropTypes.array,
+  data: PropTypes.array,
   // loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  // data: state.getIn(['videoWall', 'data']).toJS(),
-  // loading: state.getIn(['videoWall', 'loading']),
+  data: state.getIn(['strikeTable', 'data']).toJS(),
+  loading: state.getIn(['videoWall', 'loading']),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
