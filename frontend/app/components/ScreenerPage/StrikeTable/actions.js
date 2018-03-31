@@ -1,7 +1,3 @@
-// export const INITIALIZE_APPLICATION = 'app/components/ScreenerPage/StrikeTable/INITIALIZE_APPLICATION';
-// export const CLOSE_APPLICATION = 'app/components/ScreenerPage/StrikeTable/CLOSE_APPLICATION';
-// export const CLEAR_DATA = 'app/components/ScreenerPage/StrikeTable/CLEAR_DATA';
-
 export const FETCH_INITIAL_STRIKE_TABLE_DATA = 'app/components/ScreenerPage/StrikeTable/FETCH_INITIAL_STRIKE_TABLE_DATA';
 
 
@@ -14,7 +10,7 @@ export const FETCH_INITIAL_STRIKE_TABLE_DATA = 'app/components/ScreenerPage/Stri
 // -- Strike Table Data -- //
 export const fetchInitialStrikeTableData = () => ({
   type: FETCH_INITIAL_STRIKE_TABLE_DATA,
-})
+});
 // -- End Strike Table Data -- //
 
 

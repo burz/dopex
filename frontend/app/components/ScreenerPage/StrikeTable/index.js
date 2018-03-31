@@ -10,9 +10,14 @@ import { StrikeTableStyles } from './style';
 
 
 class StrikeTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     console.log('yooo');
     startNewCallListner();
+    this.props.fetchInitialStrikeTableData();
   }
 
   render() {
@@ -23,6 +28,7 @@ class StrikeTable extends React.Component {
 }
 
 StrikeTable.propTypes = {
+  fetchInitialStrikeTableData: PropTypes.func,
   // data: PropTypes.array,
   // loading: PropTypes.bool,
 };
