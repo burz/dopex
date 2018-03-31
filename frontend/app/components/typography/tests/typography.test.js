@@ -4,12 +4,12 @@ import renderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 
-import { Body, BodyStyle } from '../Body.js';
-import { Caption, CaptionStyle } from '../Caption.js';
-import { Description, DescriptionStyle } from '../Description.js';
-import { Placeholder, PlaceholderStyle } from '../Placeholder.js';
-import { Subtitle, SubtitleStyle } from '../Subtitle.js';
-import { Title, TitleStyle } from '../Title.js';
+import { Body, BodyStyle } from 'components/typography/Body.js';
+import { Caption, CaptionStyle } from 'components/typography/Caption.js';
+import { Description, DescriptionStyle } from 'components/typography/Description.js';
+import { Placeholder, PlaceholderStyle } from 'components/typography/Placeholder.js';
+import { Subtitle, SubtitleStyle } from 'components/typography/Subtitle.js';
+import { Title, TitleStyle } from 'components/typography/Title.js';
 
 
 const testText = 'test';

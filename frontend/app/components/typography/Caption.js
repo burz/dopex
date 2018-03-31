@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 
 export const CaptionStyle = styled.div`
   font-family: Montserrat, san-serif;
@@ -12,7 +14,7 @@ export const Caption = (props) => {
   return (
     <CaptionStyle color={ props.color } >
       { props.text }
-    </ CaptionStyle>
+    </CaptionStyle>
   );
 };
 
@@ -20,3 +22,5 @@ Caption.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
 };
+
+export default Caption;

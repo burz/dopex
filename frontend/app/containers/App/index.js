@@ -1,46 +1,36 @@
-import React, { PropTypes } from 'react';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import NavBar from '../../components/NavBar';
-import { fetchCategories } from './actions';
-import { AppStyle } from './AppStyles.js';
-import Footer from '../../components/Footer';
+import React from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import Helmet from 'react-helmet';
 
-export class App extends React.Component {
+import injectSaga from 'utils/injectSaga';
+import { RESTART_ON_REMOUNT } from 'utils/constants';
 
-  static propTypes = {
-    children: React.PropTypes.node,
-  };
+import HomePage from 'containers/HomePage/Loadable';
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-  componentWillMount() {
-    this.props.fetchCategories();
+import saga from './sagas';
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
-      <div id="page-wrap" style={ { height: '100%' } }>
-        <NavBar />
-        <AppStyle location={ this.props.router.location.pathname }>
-          { React.Children.toArray(this.props.children) }
-        </AppStyle>
-        <Footer />
+      <div>
+        <Switch>
+          <Route exact path="/" component={ HomePage } />
+          <Route component={ NotFoundPage } />
+        </Switch>
       </div>
     );
   }
 }
 
-App.propTypes = {
-  router: PropTypes.object.isRequired,
-  fetchCategories: PropTypes.func.isRequired
-};
+const withSaga = injectSaga({ key: 'app', saga, mode: RESTART_ON_REMOUNT });
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchCategories: () => dispatch(fetchCategories())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(App));
+export default compose(
+  withSaga,
+)(App);

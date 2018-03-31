@@ -1,10 +1,3 @@
-/**
- * app.js
- *
- * This is the entry file for the application, only setup and boilerplate
- * code.
- */
-
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
 
@@ -12,115 +5,75 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { useScroll } from 'react-router-scroll';
-
-// Import CSS Files
+import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
-import 'font-awesome/css/font-awesome.min.css';
-// import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'assets/stylesheets/insights.scss';
 
 // Import root app
 import App from 'containers/App';
 
+// Import Language Provider
+import LanguageProvider from 'containers/LanguageProvider';
+
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
-import '!file-loader?name=[name].[ext]!./favicon.ico';
+import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
-import configureStore from './store';
+import configureStore from './configureStore';
+
+// Import i18n messages
+import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
 
-// Import root routes
-import createRoutes from './routes';
-
 // Create redux store with history
-// this uses the singleton browserHistory provided by react-router
-// Optionally, this could be changed to leverage a created history
-// e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = {};
-const store = configureStore(initialState, browserHistory);
+const history = createHistory();
+const store = configureStore(initialState, history);
+const MOUNT_NODE = document.getElementById('app');
 
-// Sync history and store, as the react-router-redux reducer
-// is under the non-default key ("routing"), selectLocationState
-// must be provided for resolving how to retrieve the "route" in the state
-const makeSelectLocationState = () => {
-  let prevRoutingState;
-
-  return (state) => {
-    const routingState = state.route;
-
-    if (routingState !== prevRoutingState) {
-      prevRoutingState = routingState;
-    }
-
-    return prevRoutingState;
-    // return state.route;
-  };
-};
-
-const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState: makeSelectLocationState(),
-});
-
-// Set up the router, wrapping all Routes in the App component
-const rootRoute = {
-  component: App,
-  childRoutes: createRoutes(store),
-};
-
-const render = () => {
+const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router
-        history={history}
-        routes={rootRoute}
-        render={
-          // Scroll to top when going to a new page, imitating default browser
-          // behaviour
-          applyRouterMiddleware(useScroll())
-        }
-      />
+      <LanguageProvider messages={messages}>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </LanguageProvider>
     </Provider>,
-    document.getElementById('app')
+    MOUNT_NODE
   );
 };
 
-// // Hot reloadable translation json files
-// if (module.hot) {
-//   // modules.hot.accept does not accept dynamic dependencies,
-//   // have to be constants at compile-time
-//   module.hot.accept('./i18n', () => {
-//     render();
-//   });
-// }
-//
-//
-// // Chunked polyfill for browsers without Intl support
-// if (!window.Intl) {
-//   (new Promise((resolve) => {
-//     resolve(import('intl'));
-//   }))
-//     .then(() => Promise.all([
-//       import('intl/locale-data/jsonp/en.js'),
-//       import('intl/locale-data/jsonp/de.js'),
-//     ]))
-//     .then(() => render())
-//     .catch((err) => {
-//       throw err;
-//     });
-// } else {
-//   render();
-// }
+if (module.hot) {
+  // Hot reloadable React components and translation json files
+  // modules.hot.accept does not accept dynamic dependencies,
+  // have to be constants at compile-time
+  module.hot.accept(['./i18n', 'containers/App'], () => {
+    ReactDOM.unmountComponentAtNode(MOUNT_NODE);
+    render(translationMessages);
+  });
+}
 
-render();
-window.store = store;
+// Chunked polyfill for browsers without Intl support
+if (!window.Intl) {
+  (new Promise((resolve) => {
+    resolve(import('intl'));
+  }))
+    .then(() => Promise.all([
+      import('intl/locale-data/jsonp/en.js'),
+    ]))
+    .then(() => render(translationMessages))
+    .catch((err) => {
+      throw err;
+    });
+} else {
+  render(translationMessages);
+}
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,

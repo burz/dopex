@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 
 export const SubtitleStyle = styled.div`
   font-family: Montserrat, san-serif;
@@ -10,12 +12,14 @@ export const SubtitleStyle = styled.div`
 
 export const Subtitle = (props) => {
   return (
-    <SubtitleStyle>
+    <SubtitleStyle id="sub-title">
       { props.text }
-    </ SubtitleStyle>
+    </SubtitleStyle>
   );
 };
 
 Subtitle.propTypes = {
   text: PropTypes.string.isRequired,
 };
+
+export default Subtitle;

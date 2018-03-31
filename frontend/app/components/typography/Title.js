@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 
 export const TitleStyle = styled.div`
   font-family: Montserrat, san-serif;
@@ -12,10 +14,12 @@ export const Title = (props) => {
   return (
     <TitleStyle>
       { props.text }
-    </ TitleStyle>
+    </TitleStyle>
   );
 };
 
 Title.propTypes = {
   text: PropTypes.string.isRequired,
 };
+
+export default Title;

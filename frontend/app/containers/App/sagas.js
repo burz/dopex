@@ -1,20 +1,16 @@
-// import { call, put, takeEvery } from 'redux-saga/effects';
-// import { FETCH_CATEGORIES, receiveCategories, receiveCategoriesError } from './actions.js';
-// import request from '../../utils/request';
-// import { ROOT_URL } from '../../constants';
-//
-//
-// export function* watchfetchCategories() {
-//   yield takeEvery('FETCH_CATEGORIES', fetchCategories);
-// }
-//
-// function* fetchCategories() {
-//   const requestURL = `${ROOT_URL}/v1/categories`;
-//   try {
-//     const categories = yield call(request, requestURL, {});
-//
-//     yield put(receiveCategories(categories));
-//   } catch (err) {
-//     yield put(receiveCategoriesError(err));
-//   }
-// }
+// ***** IMPORTANT ***** //
+// This file acts similarly to the rootSaga file used in the insights repo.
+// Place all sagas that are relevant to all pages here.
+// Ex: Any sagas that deal with session stuff.
+import { takeLatest, all, call, put, select } from 'redux-saga/effects';
+import request from 'utils/request';
+import { browserHistory } from 'react-router';
+import { push } from 'react-router-redux';
+
+
+function* rootSaga() {
+  yield all([
+  ]);
+}
+
+export default rootSaga;

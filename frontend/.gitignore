@@ -1,5 +1,10 @@
-node_modules/
-coverage/
-npm-debug.log
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
+
+# Cruft
 .DS_Store
-build/
+npm-debug.log
+.idea
