@@ -107,7 +107,7 @@ contract Dopex {
         OptionInfo storage _info = calls[nextCallId];
 
         // Store data about the contract
-        _info.token   = _token
+        _info.token   = _token;
         _info.creator = msg.sender;
         _info.strike  = _strike;
         _info.size    = _size;
@@ -186,9 +186,9 @@ contract Dopex {
         _info.creator.transfer(msg.value);
 
         // Send the buyer the tokens
-        if(!ERC20Interface(_token).transfer(
-            , msg.sender
-            , _tokens
+        if(!ERC20Interface(_info.token).transfer(
+              msg.sender
+            , _info.size
         ))
         {
             revert();
@@ -215,9 +215,9 @@ contract Dopex {
         _info.exercised = true;
 
         // Send the creator his tokens
-        if(!ERC20Interface(_token).transfer(
-            , _info.creator
-            , _tokens
+        if(!ERC20Interface(_info.token).transfer(
+              _info.creator
+            , _info.size
         ))
         {
             revert();
