@@ -79,7 +79,9 @@ Promise.all([
       , i
       , i
     ))
+  }
 
+  for(let i = 0; i < 10; ++i) {
     promises.push(createPut(
         i
       , i
