@@ -18,14 +18,14 @@ class Visualizer extends React.Component {
 
   render() {
     return (
-      <div>{ this.props.data }</div>
+      <div>Visualizer { this.props.data }</div>
     );
   }
 }
 
 Visualizer.propTypes = {
   fetchInitialVisualizerData: PropTypes.func,
-  data: PropTypes.string,
+  data: PropTypes.object,
   loading: PropTypes.bool,
 };
 
