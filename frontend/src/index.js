@@ -1,5 +1,6 @@
 import App from './App'
 import Home from './layouts/Home'
+import { Provider } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
