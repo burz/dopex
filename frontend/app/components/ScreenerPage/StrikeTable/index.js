@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import { Table } from 'react-bootstrap';
 
 import { startNewCallListner } from './listeners';
 import * as actions from './actions';
@@ -25,9 +25,37 @@ class StrikeTable extends React.Component {
     });
   }
 
+  renderTableBody() {
+  //   return this.props.data.map((airing, idx) =>
+  //     <AdAiringsTableItem
+  //       key={ `${airing.aired_ads_id}` }
+  //       airing={ airing }
+  //       debug={ this.props.debug }
+  //       openVideoPopup={ this.props.openVideoPopup(airing.mp4_clip, airing.thumbnail) }
+  //       new={ airing.new }
+  //     />
+  //   );
+  }
+
   render() {
     return (
-      <div>{ this.renderSampleData() }</div>
+      <StrikeTableStyles>
+        <Table hover responsive>
+          <thead>
+            <tr>
+              <th className="th-ad">Ad</th>
+              <th className="th-air-time">Air Time</th>
+              <th className="th-title">Title</th>
+              <th className="th-brand">Brand</th>
+              <th className="th-station-logo">Station</th>
+              <th className="th-station"></th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.renderTableBody() }
+          </tbody>
+        </Table>
+      </StrikeTableStyles>
     );
   }
 }

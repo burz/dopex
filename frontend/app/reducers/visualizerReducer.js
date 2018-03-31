@@ -4,7 +4,7 @@ import * as actions from 'components/ScreenerPage/Visualizer/actions';
 
 
 const initialState = fromJS({
-  data: List(),
+  data: null,
   error: null,
   loading: true,
 });

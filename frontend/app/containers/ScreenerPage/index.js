@@ -19,7 +19,7 @@ class ScreenerPage extends React.Component {
     return (
       <ScreenerPageStyles>
         <Helmet title="Home | DOPEX" />
-        <Grid>
+        <Grid className="dashboards-grid">
           <Row>
             <Col>
               <h1>DOPEX Front Page</h1>
