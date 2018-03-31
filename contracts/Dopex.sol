@@ -282,6 +282,9 @@ contract Dopex {
         // Ensure that the contract actually exists
         require(0x0 != _info.creator);
 
+        // Require that the creator hasn't closed the contract
+        require(!_info.exercised);
+
         // Require that the price was paid for the contract
         require(_info.price == msg.value);
 
