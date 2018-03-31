@@ -4,27 +4,27 @@ import DopeCoin from '../../../../../build/contracts/DopeCoin.json';
 
 import { getWeb3, getWeb3AndCoinbase } from 'utils/web3/getWeb3'
 
-export const processCallEvent = (error, event) => {
-    if (error) {
-        console.log(error)
-        return;
-    }
+// export const processCallEvent = (error, event) => {
+//     if (error) {
+//         console.log(error)
+//         return;
+//     }
 
-    console.log("Processing call, dope!");
-    console.log(event);
-    //event.returnValues;
-}
+//     console.log("Processing call, dope!");
+//     console.log(event);
+//     //event.returnValues;
+// }
 
-export const processPutEvent = (error, event) => {
-    if (error) {
-        console.log(error)
-        return;
-    }
+// export const processPutEvent = (error, event) => {
+//     if (error) {
+//         console.log(error)
+//         return;
+//     }
 
-    console.log("Processing put, dope!");
-    console.log(event);
-    //event.returnValues;
-}
+//     console.log("Processing put, dope!");
+//     console.log(event);
+//     //event.returnValues;
+// }
 
 export const startEventListener = (callCallback, putCallback) => {
 
@@ -43,10 +43,12 @@ export const startEventListener = (callCallback, putCallback) => {
                 switch(result.event) {
                     case 'NewCall':
                         console.log("New call, dope!");
+                        console.log(result);
                         callCallback(result);
                         break
                     case 'NewPut':
                         console.log("New put, dope!");
+                        console.log(result);
                         putCallback(result);
                         break
                     default:
