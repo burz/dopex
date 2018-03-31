@@ -1,1 +1,1 @@
-export const sampleData = 'blah blah blah test';
+export const sampleData = 'The Visualization Tool Goes Here';

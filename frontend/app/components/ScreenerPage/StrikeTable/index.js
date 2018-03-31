@@ -37,18 +37,31 @@ class StrikeTable extends React.Component {
   //   );
   }
 
+  // #56BEEC
+  // #333
+
+
   render() {
     return (
       <StrikeTableStyles>
         <Table hover responsive>
           <thead>
             <tr>
-              <th className="th-ad">Ad</th>
-              <th className="th-air-time">Air Time</th>
-              <th className="th-title">Title</th>
-              <th className="th-brand">Brand</th>
-              <th className="th-station-logo">Station</th>
-              <th className="th-station"></th>
+              <th className="th-calls-last">Last</th>
+              <th className="th-calls-last">Size</th>
+              <th className="th-calls-last">Bid</th>
+              <th className="th-calls-last">Ask</th>
+              <th className="th-calls-last">Size</th>
+              <th className="th-calls-last">Vol</th>
+              <th className="th-calls-last">Delta</th>
+              <th className="th-calls-last"></th>
+              <th className="th-calls-last">Last</th>
+              <th className="th-calls-last">Size</th>
+              <th className="th-calls-last">Bid</th>
+              <th className="th-calls-last">Ask</th>
+              <th className="th-calls-last">Size</th>
+              <th className="th-calls-last">Vol</th>
+              <th className="th-calls-last">Delta</th>
             </tr>
           </thead>
           <tbody>

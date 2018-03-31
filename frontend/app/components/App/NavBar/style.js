@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 
 export const NavbarStyles = styled.div`
+  border-bottom: 1px solid white;
+
   .nav-header-logo {
     cursor: pointer;
     // margin-left: 0 !important;
@@ -13,11 +15,11 @@ export const NavbarStyles = styled.div`
   }
 
   .navbar-inverse {
-    background-color: #C00;
+    background-color: #333;
     border: none;
 
     .navbar-brand, .navbar-nav > li > a {
-      color: #f5f5f5;
+      color: #56BEEC;
     }
   }
 
@@ -50,6 +52,9 @@ export const NavbarStyles = styled.div`
     }
   }
 
+  .dashboards-grid {
+    margin-bottom: 0px !important;
+  }
 
   .dashboards-grid > {
       @media (min-width: 0px) {
