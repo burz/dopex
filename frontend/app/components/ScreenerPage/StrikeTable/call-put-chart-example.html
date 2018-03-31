@@ -3,10 +3,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Flot Examples: Basic Usage</title>
-	<link href="../examples.css" rel="stylesheet" type="text/css">
+	<link href="flot/examples.css" rel="stylesheet" type="text/css">
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../../excanvas.min.js"></script><![endif]-->
-	<script language="javascript" type="text/javascript" src="../../jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="../../jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
 	<script type="text/javascript">
 
 	$(function() {
@@ -21,10 +21,10 @@
 		// A null signifies separate line segments
 
 		var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
-    // TODO: Check here
-    var d4 = [[0, 5], [5, 5], [10, 10]]; // Call option
-    var d5 = [[0, 10], [6, 5], [10,5]];  // Put option
-    var d6 = [[0, 0], [10, 12]];  // Stock (Underlying)
+	    // TODO: Check here
+	    var d4 = [[0, 5], [5, 5], [10, 10]]; // Call option
+	    var d5 = [[0, 10], [6, 5], [10,5]];  // Put option
+	    var d6 = [[0, 0], [10, 12]];  // Stock (Underlying)
 
 		$.plot("#placeholder", [ d4, d5, d6 ]);
 
