@@ -16,6 +16,9 @@ contract Dopex {
         /// @dev The period of the contract
         uint period;
 
+        /// @dev The price to buy this contract
+        uint price;
+
         /// @dev The buyer of the contract
         address buyer;
 
@@ -78,7 +81,7 @@ contract Dopex {
     )
         public
     {
-        var _info = calls[nextCallId];
+        OptionInfo storage _info = calls[nextCallId];
 
         // Store data about the contract
         _info.creator = msg.sender;
@@ -88,15 +91,22 @@ contract Dopex {
         _info.price   = _price;
 
         // Expose the new contract
-        NewCall(nextCallId++, msg.sender, _strike, _start, _period);
+        emit NewCall(
+              nextCallId++
+            , msg.sender
+            , _strike
+            , _start
+            , _period
+            , _price
+        );
     }
 
     /// @dev Purchase an existing call option
     /// @param _id The id of the call option
-    function purchaseCall(uint _id) public
+    function purchaseCall(uint _id) public payable
     {
         // Lookup the contract's info
-        var _info = calls[_id];
+        OptionInfo storage _info = calls[_id];
 
         // Ensure that the contract actually exists
         require(0x0 != _info.creator);
@@ -111,7 +121,7 @@ contract Dopex {
         _info.creator.transfer(msg.value);
 
         // Expose that the contract was bought
-        CallPurchased(_id, msg.sender);
+        emit CallPurchased(_id, msg.sender);
     }
 
     /// @dev Exercise the call option
@@ -119,7 +129,7 @@ contract Dopex {
     function exerciseCall(uint _id) public
     {
         // Lookup the contract's info
-        var _info = calls[_id];
+        OptionInfo storage _info = calls[_id];
 
         // Require that the sender is the buyer of the contract
         require(_info.buyer == msg.sender);
@@ -134,7 +144,7 @@ contract Dopex {
         _info.exercised = true;
 
         // Expose that the option has been exercised
-        CallExercised(_id);
+        emit CallExercised(_id);
     }
 
     /// @dev Close a call option if it has not been exercised
@@ -142,7 +152,7 @@ contract Dopex {
     function closeCall(uint _id) public
     {
         // Lookup the contract's info
-        var _info = calls[_id];
+        OptionInfo storage _info = calls[_id];
 
         // Require that the exercising period has ended
         require(_info.start + _info.period < now);
@@ -154,6 +164,6 @@ contract Dopex {
         _info.exercised = true;
 
         // Expose that the option has been closed
-        CallClosed(_id);
+        emit CallClosed(_id);
     }
 }
