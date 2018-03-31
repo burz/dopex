@@ -21,6 +21,7 @@ function get_option_type(record){
 }
 function build_data_set(strike, cp){
 
+  strike = parseInt(strike);
   var option = [], underlying = [];
   var end = 2*strike;
   // Options
@@ -36,6 +37,6 @@ function build_data_set(strike, cp){
   // Underlying
   var spot = 0.7 * strike;
   underlying.push([0, -1*spot]);
-  underlying.push([end, end-s]);
+  underlying.push([end, end-spot]);
   return [underlying, option];
 }
