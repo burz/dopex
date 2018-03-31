@@ -4,6 +4,9 @@ pragma solidity ^0.4.18;
 contract Dopex {
     /// @dev Struct to hold information about an option
     struct OptionInfo {
+        /// @dev The address of the token being traded
+        address token;
+
         /// @dev The address of the creator of the option
         address creator;
 
@@ -39,6 +42,7 @@ contract Dopex {
     /// @dev Fired when a new call is created
     event NewCall(
           uint id
+        , address token
         , address creator
         , uint strike
         , uint start
@@ -69,12 +73,14 @@ contract Dopex {
     event PutClosed(uint id);
 
     /// @dev Create a new call option
+    /// @param _token The address of the token being traded
     /// @param _strike The strike price of the contract
     /// @param _start The start time of the contract
     /// @param _period The exercise period of the contract
     /// @param _price The price of the contract
     function createCall(
-          uint _strike
+          address _token
+        , uint _strike
         , uint _start
         , uint _period
         , uint _price
@@ -84,6 +90,7 @@ contract Dopex {
         OptionInfo storage _info = calls[nextCallId];
 
         // Store data about the contract
+        _info.token   = _token
         _info.creator = msg.sender;
         _info.strike  = _strike;
         _info.start   = _start;
@@ -93,6 +100,7 @@ contract Dopex {
         // Expose the new contract
         emit NewCall(
               nextCallId++
+            , _token
             , msg.sender
             , _strike
             , _start
