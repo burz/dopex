@@ -22,13 +22,9 @@ class NavBar extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            { /*
-              <Nav>
-                <NavItem eventKey={1} href="#">Link 1</NavItem>
-                <NavItem eventKey={2} href="#">Link 2</NavItem>
-              </Nav>
-              */
-            }
+            <Nav pullRight>
+              <NavItem eventKey={1} href="#">{ 'Account: 0x627306090abab3a6e1400e9345bc60c78a8bef57' }</NavItem>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
 
