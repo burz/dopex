@@ -80,31 +80,43 @@ contract Dopex {
     /// @dev Fired when a put is closed without being exercised
     event PutClosed(uint id);
 
-    function createTestCallEvent() public {
+    function createCallEvent(
+          uint _strike
+        , uint _size
+        , uint _start
+        , uint _period
+        , uint _price
+    ) public {
         // Expose the new contract
         emit NewCall(
               nextCallId++
             , msg.sender
             , msg.sender
-            , 1
-            , 1
-            , 1
-            , 1
-            , 1
+            , _strike
+            , _size
+            , _start
+            , _period
+            , _price
         );
     }
 
-    function createTestPutEvent() public {
+    function createPutEvent(
+          uint _strike
+        , uint _size
+        , uint _start
+        , uint _period
+        , uint _price
+    ) public {
         // Expose the new contract
         emit NewPut(
-              nextCallId++
+              nextPutId++
             , msg.sender
             , msg.sender
-            , 1
-            , 1
-            , 1
-            , 1
-            , 1
+            , _strike
+            , _size
+            , _start
+            , _period
+            , _price
         );
     }
 
