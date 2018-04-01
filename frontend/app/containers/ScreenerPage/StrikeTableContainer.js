@@ -19,11 +19,13 @@ class StrikeTableContainer extends React.Component {
     return (
       <Row>
         <Col xs={6} sm={6} md={6} lg={6} className="no-lr-padding">
+          <h3>Calls</h3>
           <StrikeTable
             data={ this.props.data.filter(el => el.event === 'NewCall') }
           />
         </Col>
         <Col xs={6} sm={6} md={6} lg={6} className="no-lr-padding">
+          <h3>Puts</h3>
           <StrikeTable
             data={ this.props.data.filter(el => el.event === 'NewPut') }
           />
