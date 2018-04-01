@@ -1,0 +1,11 @@
+{
+  "name": "dummy",
+  "version": "0.0.1",
+  "description": "dopex dummy data initializer",
+  "private": true,
+  "author": "DOPEX",
+  "dependencies": {
+    "truffle-contract": "^3.0.2",
+    "web3": "^0.20.2"
+  }
+}

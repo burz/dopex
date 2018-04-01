@@ -285,7 +285,7 @@ contract Dopex {
         _info.period  = _period;
         _info.price   = _price;
 
-        require(_size * _price == msg.value);
+        require(_strike * _size == msg.value);
 
         // Expose the new contract
         emit NewPut(
