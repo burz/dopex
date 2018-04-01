@@ -27,15 +27,10 @@ class Visualizer extends React.Component {
   render() {
     return (
       <VisualizerStyles>
-        <img
-          src={ Image }
-        />
-
-        <div>
-          <h2>Visualizer</h2>
-          <div>
-            { this.renderFakeText() }
-          </div>
+        <div className="img-wrapper">
+          <img
+            src={ Image }
+          />
         </div>
       </VisualizerStyles>
     );
