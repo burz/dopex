@@ -4,38 +4,33 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
-import * as actions from './actions';
 import { StrikeTableStyles } from './style';
 
 
 class StrikeTable extends React.Component {
-  renderSampleData() {
-    return this.props.data.map((line, i) => {
-      return <div key={i}>{ JSON.stringify(line) }</div>;
-    });
+  constructor(props) {
+    super(props);
   }
 
   renderTableBody() {
-    return this.props.data.map((el, i) =>
-      <tr key={i}>
-        <td className="td-calls-last">{ el.strike }</td>
-        <td className="td-calls-last">{ el.price }</td>
-        <td className="td-calls-last">{ el.size }</td>
-        <td className="td-calls-last">{ 'Dopecoin' }</td>
-        <td className="td-calls-last">{ el.sec }</td>
-        <td className="td-calls-last">{ el.start }</td>
-        <td className="td-calls-last">{ el.period }</td>
-        <td className="td-calls-last">{ el.creator }</td>
-        <td className="td-calls-last">{ el.owner }</td>
-      </tr>
+    return this.props.data.map((el, i) => {
+      return (
+        <tr key={i}>
+          <td className="td-calls-last">{ el.args.strike.toString() }</td>
+          <td className="td-calls-last">{ el.args.price.toString() }</td>
+          <td className="td-calls-last">{ el.args.size.toString() }</td>
+          <td className="td-calls-last">{ 'Dopecoin' }</td>
+          <td className="td-calls-last">{ el.args.start.toString() }</td>
+          <td className="td-calls-last">{ el.args.period.toString() }</td>
+          <td className="td-calls-last">{ el.args.creator }</td>
+        </tr>
+      );
+    }
     );
   }
 
-  // #56BEEC
-  // #333
-
-
   render() {
+    if (this.props.data.size === 0) return null;
     return (
       <StrikeTableStyles>
         <Table hover responsive>
@@ -45,15 +40,14 @@ class StrikeTable extends React.Component {
               <th className="th-calls-last">Price</th>
               <th className="th-calls-last">Size</th>
               <th className="th-calls-last">Token</th>
-              <th className="th-calls-last">Security</th>
               <th className="th-calls-last">Start</th>
-              <th className="th-calls-last">End</th>
+              <th className="th-calls-last">Period</th>
               <th className="th-calls-last">Creator</th>
-              <th className="th-calls-last">Owner</th>
             </tr>
           </thead>
           <tbody>
             { this.renderTableBody() }
+
           </tbody>
         </Table>
       </StrikeTableStyles>

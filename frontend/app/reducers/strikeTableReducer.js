@@ -12,10 +12,12 @@ const initialState = fromJS({
 
 
 function strikeTableReducer(state = initialState, action) {
+  const data = state.get('data');
+
   switch (action.type) {
     case actions.RECEIVE_STRIKE_TABLE_DATA:
       return state.merge({
-        data: action.data,
+        data: data.push(action.data),
         error: false,
         loading: false,
       });
